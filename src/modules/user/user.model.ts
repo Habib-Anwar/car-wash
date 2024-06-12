@@ -1,15 +1,14 @@
 import { Schema, model } from "mongoose";
-import { TUser } from "./user.interface";
+import { Name, TUser } from "./user.interface";
 import bcrypt from "bcrypt";
 import config from "../../config";
 
-const NameSchema = new Schema({
+const NameSchema = new Schema<Name>({
   firstName: { type: String, required: true },
-  middleName: { type: String },
   lastName: { type: String, required: true },
 });
 
-const userSchema = new Schema({
+const userSchema = new Schema<TUser>({
   name: { type: NameSchema, required: true },
   email: {
     type: String,
@@ -22,9 +21,9 @@ const userSchema = new Schema({
   address: { type: String, required: true },
 });
 
-// pre save middleware/ hook : will work on create(), save()
+// pre save middleware/ hook
 userSchema.pre("save", async function (next) {
-  console.log(this, "pre hook : we will save data");
+  console.log(this, "pre hook : save data");
   const user = this;
   // hashing password and save into DB
   user.password = await bcrypt.hash(
@@ -34,9 +33,9 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-// post save middleware / hook : will work on create() save()
+// post save middleware / hook
 userSchema.post("save", function (doc, next) {
-  // console.log(this, "post hook : We saved our data");
+  // console.log(this, "post hook : Data has been saved");
   doc.password = "";
   next();
 });
