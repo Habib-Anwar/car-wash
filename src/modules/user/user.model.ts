@@ -8,18 +8,21 @@ const NameSchema = new Schema<Name>({
   lastName: { type: String, required: true },
 });
 
-const userSchema = new Schema<TUser>({
-  name: { type: NameSchema, required: true },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
+const userSchema = new Schema<TUser>(
+  {
+    name: { type: NameSchema, required: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: { type: String, required: true },
+    phone: { type: String, required: true },
+    role: { type: String, required: true, enum: ["admin", "user"] },
+    address: { type: String, required: true },
   },
-  password: { type: String, required: true },
-  phone: { type: String, required: true },
-  role: { type: String, required: true, enum: ["admin", "user"] },
-  address: { type: String, required: true },
-});
+  { timestamps: true }
+);
 
 // pre save middleware/ hook
 userSchema.pre("save", async function (next) {

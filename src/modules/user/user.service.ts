@@ -3,7 +3,6 @@ import { User } from "./user.model";
 import bcrypt from "bcrypt";
 
 const createUserIntoDB = async (userData: TUser) => {
-  // Set user role to "user" before creating the user object
   const result = await User.create(userData);
   return result;
 };
