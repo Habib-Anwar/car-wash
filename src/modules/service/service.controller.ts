@@ -54,8 +54,49 @@ const getAllServices = async (
   }
 };
 
+const updateServicHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const result = await carWashServices.updateService(id, updateData);
+
+    res.json({
+      success: true,
+      message: "Service updated successfully",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const deleteServiceHandler = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const result = await carWashServices.deleteService(id);
+    res.status(200).json({
+      success: true,
+      message: "Service is deleted successfully",
+      data: result,
+    });
+  } catch (err: any) {
+    next(err);
+  }
+};
+
 export const serviceControllers = {
   createService,
   getService,
   getAllServices,
+  updateServicHandler,
+  deleteServiceHandler,
 };
