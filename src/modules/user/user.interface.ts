@@ -1,10 +1,5 @@
-export type Name = {
-  firstName: string;
-  lastName: string;
-};
-
 export type TUser = {
-  name: Name;
+  name: string;
   email: string;
   password: string;
   phone: string;
