@@ -1,3 +1,5 @@
+import { Types } from "mongoose";
+
 export type TVehicle =
   | "car"
   | "truck"
@@ -11,9 +13,8 @@ export type TVehicle =
   | "tractor";
 
 export type TBooking = {
-  customer: string;
-  service: string;
-  slot: string;
+  serviceId: Types.ObjectId;
+  slotId: Types.ObjectId;
   vehicleType: TVehicle;
   vehicleBrand: string;
   vehicleModel: string;

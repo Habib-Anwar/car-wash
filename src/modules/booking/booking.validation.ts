@@ -14,14 +14,15 @@ const VehicleTypeEnum = z.enum([
 ]);
 
 const bookingValidationSchema = z.object({
-  customer: z.string(),
-  service: z.string(),
-  slot: z.string(),
-  vehicleType: VehicleTypeEnum,
-  vehicleBrand: z.string(),
-  vehicleModel: z.string(),
-  manufacturingYear: z.string(),
-  registrationPlate: z.string(),
+  body: z.object({
+    service: z.string(),
+    slot: z.string(),
+    vehicleType: VehicleTypeEnum,
+    vehicleBrand: z.string(),
+    vehicleModel: z.string(),
+    manufacturingYear: z.string(),
+    registrationPlate: z.string(),
+  }),
 });
 
 export default bookingValidationSchema;

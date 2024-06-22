@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Model, Schema, model } from "mongoose";
 
 import bcrypt from "bcrypt";
 import config from "../../config";
@@ -38,5 +38,9 @@ userSchema.post("save", function (doc, next) {
   doc.password = "";
   next();
 });
+
+userSchema.statics.isUserExists = async function (email: string) {
+  return await User.findOne({ email });
+};
 
 export const User = model<TUser>("User", userSchema);
